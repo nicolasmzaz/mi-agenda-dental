@@ -1,0 +1,11 @@
+
+{
+    "name": "Mi Agenda Dental",
+    "short_name": "Agenda Dental",
+    "description": "Agenda personal de trabajo dental",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f5f3f8",
+    "theme_color": "#6c2bd9",
+    "orientation": "portrait"
+}

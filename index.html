@@ -1,0 +1,1001 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#6c2bd9">
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Mi Agenda Dental"
+    >
+
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <title>Mi Agenda Dental</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         BIENVENIDA
+    ========================== -->
+
+    <div
+        id="welcomeScreen"
+        class="welcome-screen"
+    >
+
+        <div class="welcome-card">
+
+            <div class="welcome-icon">
+                🦷
+            </div>
+
+            <h1>
+                Mi Agenda Dental
+            </h1>
+
+            <p>
+                ¡Bienvenido! Vamos a preparar tu agenda dental.
+            </p>
+
+            <label for="nameInput">
+                ¿Cómo quieres que te llamemos?
+            </label>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Escribe tu nombre"
+            >
+
+            <button
+                id="startButton"
+                class="primary-button"
+            >
+                Comenzar
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         APLICACIÓN
+    ========================== -->
+
+    <div
+        id="appScreen"
+        class="app-screen hidden"
+    >
+
+
+        <!-- CABECERA -->
+
+        <header class="top-header">
+
+            <div>
+
+                <div
+                    id="greeting"
+                    class="greeting"
+                ></div>
+
+                <div
+                    id="dateText"
+                    class="date-text"
+                ></div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- CONTENIDO -->
+
+        <main>
+
+
+            <!-- =========================
+                 HOY
+            ========================== -->
+
+            <section
+                id="page-hoy"
+                class="page active"
+            >
+
+                <div class="page-title-row">
+
+                    <div>
+
+                        <h2>
+                            Hoy
+                        </h2>
+
+                        <p>
+                            Tu jornada de hoy
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="todayPatients"
+                        class="patients-total"
+                    >
+                        0 pacientes
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="todayJourneys"
+                ></div>
+
+
+                <button
+                    id="addTodayButton"
+                    class="add-button"
+                >
+                    ＋ Añadir a hoy
+                </button>
+
+            </section>
+
+
+
+            <!-- =========================
+                 CALENDARIO
+            ========================== -->
+
+            <section
+                id="page-calendario"
+                class="page"
+            >
+
+                <div class="page-title-row">
+
+                    <div>
+
+                        <h2>
+                            Calendario
+                        </h2>
+
+                        <p>
+                            Organiza tus jornadas
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="calendar-card">
+
+                    <div class="calendar-header">
+
+                        <button
+                            id="prevMonth"
+                            class="calendar-arrow"
+                        >
+                            ‹
+                        </button>
+
+
+                        <h3
+                            id="calendarMonth"
+                        ></h3>
+
+
+                        <button
+                            id="nextMonth"
+                            class="calendar-arrow"
+                        >
+                            ›
+                        </button>
+
+                    </div>
+
+
+                    <div class="calendar-weekdays">
+
+                        <span>L</span>
+                        <span>M</span>
+                        <span>X</span>
+                        <span>J</span>
+                        <span>V</span>
+                        <span>S</span>
+                        <span>D</span>
+
+                    </div>
+
+
+                    <div
+                        id="calendarDays"
+                        class="calendar-days"
+                    ></div>
+
+                </div>
+
+
+                <div class="selected-day-title">
+
+                    <h3
+                        id="selectedDateTitle"
+                    ></h3>
+
+                </div>
+
+
+                <div
+                    id="calendarJourneys"
+                ></div>
+
+
+                <button
+                    id="addCalendarJourney"
+                    class="add-button"
+                >
+                    ＋ Añadir jornada
+                </button>
+
+            </section>
+
+
+
+            <!-- =========================
+                 CLÍNICAS
+            ========================== -->
+
+            <section
+                id="page-clinicas"
+                class="page"
+            >
+
+                <div class="page-title-row">
+
+                    <div>
+
+                        <h2>
+                            Mis clínicas
+                        </h2>
+
+                        <p>
+                            Tus lugares de trabajo
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="clinicsList"
+                ></div>
+
+
+                <button
+                    id="addClinicButton"
+                    class="add-button"
+                >
+                    ＋ Añadir clínica
+                </button>
+
+            </section>
+
+
+
+            <!-- =========================
+                 AJUSTES
+            ========================== -->
+
+            <section
+                id="page-ajustes"
+                class="page"
+            >
+
+                <div class="page-title-row">
+
+                    <div>
+
+                        <h2>
+                            Ajustes
+                        </h2>
+
+                        <p>
+                            Personaliza tu agenda
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- NOMBRE -->
+
+                <div class="settings-card">
+
+                    <div class="settings-icon">
+                        👤
+                    </div>
+
+
+                    <div class="settings-content">
+
+                        <h3>
+                            Mi nombre
+                        </h3>
+
+                        <p>
+                            Nombre que aparece en tu agenda
+                        </p>
+
+
+                        <div
+                            class="settings-input-row"
+                        >
+
+                            <input
+                                type="text"
+                                id="settingsName"
+                                placeholder="Tu nombre"
+                            >
+
+
+                            <button
+                                id="saveNameButton"
+                                class="small-button"
+                            >
+                                Guardar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- NOTIFICACIONES -->
+
+                <div class="settings-card">
+
+                    <div class="settings-icon">
+                        🔔
+                    </div>
+
+
+                    <div class="settings-content">
+
+                        <div
+                            class="settings-title-row"
+                        >
+
+                            <div>
+
+                                <h3>
+                                    Notificaciones
+                                </h3>
+
+                                <p>
+                                    Activar los avisos de tu agenda
+                                </p>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    type="checkbox"
+                                    id="notificationsToggle"
+                                >
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HORA -->
+
+                <div class="settings-card">
+
+                    <div class="settings-icon">
+                        ⏰
+                    </div>
+
+
+                    <div class="settings-content">
+
+                        <h3>
+                            Hora de aviso diario
+                        </h3>
+
+                        <p>
+                            Hora del resumen diario
+                        </p>
+
+
+                        <input
+                            type="time"
+                            id="notificationTime"
+                            class="time-input"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RECORDATORIO -->
+
+                <div class="settings-card">
+
+                    <div class="settings-icon">
+                        ⏱️
+                    </div>
+
+
+                    <div class="settings-content">
+
+                        <h3>
+                            Recordatorio de jornada
+                        </h3>
+
+                        <p>
+                            Aviso antes de empezar
+                        </p>
+
+
+                        <select
+                            id="reminderMinutes"
+                            class="settings-select"
+                        >
+
+                            <option value="0">
+                                Sin recordatorio
+                            </option>
+
+                            <option value="15">
+                                15 minutos antes
+                            </option>
+
+                            <option value="30">
+                                30 minutos antes
+                            </option>
+
+                            <option value="60">
+                                1 hora antes
+                            </option>
+
+                            <option value="120">
+                                2 horas antes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INSTALACIÓN -->
+
+                <div class="settings-card">
+
+                    <div class="settings-icon">
+                        📱
+                    </div>
+
+
+                    <div class="settings-content">
+
+                        <h3>
+                            Instalar en iPhone
+                        </h3>
+
+                        <p>
+                            Añade Mi Agenda Dental a la pantalla de inicio para utilizarla como una aplicación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INFORMACIÓN -->
+
+                <div
+                    class="settings-card"
+                >
+
+                    <div class="settings-icon">
+                        ℹ️
+                    </div>
+
+
+                    <div class="settings-content">
+
+                        <h3>
+                            Mi Agenda Dental
+                        </h3>
+
+                        <p>
+                            Tu agenda personal de trabajo.
+                        </p>
+
+                        <span class="app-version">
+                            Versión 1.0
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- =========================
+             NAVEGACIÓN
+        ========================== -->
+
+        <nav class="bottom-nav">
+
+
+            <button
+                class="nav-button active"
+                data-page="hoy"
+            >
+
+                <span>
+                    🏠
+                </span>
+
+                <small>
+                    Hoy
+                </small>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="calendario"
+            >
+
+                <span>
+                    📅
+                </span>
+
+                <small>
+                    Calendario
+                </small>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="clinicas"
+            >
+
+                <span>
+                    🏥
+                </span>
+
+                <small>
+                    Clínicas
+                </small>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="ajustes"
+            >
+
+                <span>
+                    ⚙️
+                </span>
+
+                <small>
+                    Ajustes
+                </small>
+
+            </button>
+
+
+        </nav>
+
+    </div>
+
+
+
+    <!-- =========================
+         MODAL JORNADA
+    ========================== -->
+
+    <div
+        id="journeyModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-card">
+
+
+            <div class="modal-header">
+
+                <h2
+                    id="journeyModalTitle"
+                >
+                    Añadir jornada
+                </h2>
+
+
+                <button
+                    id="closeJourneyModal"
+                    class="close-button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <label>
+                Fecha
+            </label>
+
+            <input
+                type="date"
+                id="journeyDate"
+            >
+
+
+            <label>
+                Clínica
+            </label>
+
+            <select
+                id="clinicSelect"
+            ></select>
+
+
+            <label>
+                Hora de inicio
+            </label>
+
+            <input
+                type="time"
+                id="startTime"
+            >
+
+
+            <label>
+                Hora de finalización
+            </label>
+
+            <input
+                type="time"
+                id="endTime"
+            >
+
+
+            <label>
+                Número de pacientes
+            </label>
+
+            <input
+                type="number"
+                id="patientsInput"
+                min="0"
+                placeholder="Ej. 12"
+            >
+
+
+            <label>
+                Notas
+            </label>
+
+            <textarea
+                id="notesInput"
+                placeholder="Añade alguna nota..."
+            ></textarea>
+
+
+
+            <!-- REPETICIÓN -->
+
+            <div id="repeatSection">
+
+                <label>
+                    Repetir
+                </label>
+
+
+                <select
+                    id="repeatSelect"
+                >
+
+                    <option value="none">
+                        No repetir
+                    </option>
+
+                    <option value="weekly">
+                        Cada semana
+                    </option>
+
+                </select>
+
+
+                <div
+                    id="repeatOptions"
+                    class="repeat-options hidden"
+                >
+
+                    <label>
+                        Días de la semana
+                    </label>
+
+
+                    <div class="repeat-days">
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="1"
+                            >
+
+                            L
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="2"
+                            >
+
+                            M
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="3"
+                            >
+
+                            X
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="4"
+                            >
+
+                            J
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="5"
+                            >
+
+                            V
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="6"
+                            >
+
+                            S
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                class="repeat-day"
+                                value="0"
+                            >
+
+                            D
+
+                        </label>
+
+
+                    </div>
+
+
+                    <label>
+                        Repetir hasta
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="repeatEndDate"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                id="saveJourneyButton"
+                class="primary-button"
+            >
+                Guardar jornada
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MODAL CLÍNICA
+    ========================== -->
+
+    <div
+        id="clinicModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-card">
+
+
+            <div class="modal-header">
+
+                <h2
+                    id="clinicModalTitle"
+                >
+                    Añadir clínica
+                </h2>
+
+
+                <button
+                    id="closeClinicModal"
+                    class="close-button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <label>
+                Nombre de la clínica
+            </label>
+
+            <input
+                type="text"
+                id="clinicName"
+                placeholder="Ej. Clínica Dental Madrid"
+            >
+
+
+            <label>
+                Dirección
+            </label>
+
+            <input
+                type="text"
+                id="clinicAddress"
+                placeholder="Dirección"
+            >
+
+
+            <label>
+                Notas
+            </label>
+
+            <textarea
+                id="clinicNotes"
+                placeholder="Notas de la clínica..."
+            ></textarea>
+
+
+            <button
+                id="saveClinicButton"
+                class="primary-button"
+            >
+                Guardar clínica
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
+```

@@ -1,0 +1,1064 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+
+    touch-action: manipulation;
+
+    -webkit-user-select: none;
+    user-select: none;
+
+    -webkit-text-size-adjust: 100%;
+}
+
+input,
+textarea,
+select {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+
+    background: #f5f3f8;
+    color: #17151c;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   BIENVENIDA
+========================= */
+
+.welcome-screen {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: #f5f3f8;
+}
+
+.welcome-card {
+    width: 100%;
+    max-width: 430px;
+
+    background: white;
+
+    padding: 35px 25px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.welcome-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.welcome-card h1 {
+    margin: 0 0 10px;
+
+    font-size: 30px;
+}
+
+.welcome-card p {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.welcome-card label {
+    display: block;
+
+    text-align: left;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+}
+
+.welcome-card input {
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.primary-button,
+.add-button {
+    width: 100%;
+
+    border: none;
+
+    background: #6c2bd9;
+
+    color: white;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+.primary-button:active,
+.add-button:active {
+    transform: scale(0.98);
+}
+
+.add-button {
+    margin-top: 20px;
+}
+
+.small-button {
+    border: none;
+
+    background: #6c2bd9;
+
+    color: white;
+
+    padding: 11px 15px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app-screen {
+    min-height: 100vh;
+
+    padding-bottom: 90px;
+
+    width: 100%;
+}
+
+.top-header {
+    background: white;
+
+    padding:
+        25px 20px 18px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.greeting {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.date-text {
+    color: #777;
+
+    margin-top: 5px;
+
+    text-transform: capitalize;
+}
+
+main {
+    width: 100%;
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+.page {
+    display: none;
+
+    padding: 22px 18px;
+
+    width: 100%;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.page-title-row h2 {
+    margin: 0;
+
+    font-size: 28px;
+}
+
+.page-title-row p {
+    margin: 5px 0 0;
+
+    color: #777;
+}
+
+.patients-total {
+    background: #eee7fa;
+
+    color: #6c2bd9;
+
+    padding: 8px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   JORNADAS
+========================= */
+
+.journey-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 14px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.journey-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.journey-clinic {
+    font-size: 19px;
+
+    font-weight: 800;
+}
+
+.journey-time {
+    color: #6c2bd9;
+
+    font-weight: 700;
+
+    margin-top: 7px;
+}
+
+.journey-info {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.info-pill {
+    background: #f1eff4;
+
+    padding: 7px 10px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+}
+
+.journey-notes {
+    margin-top: 12px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #eee;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+.journey-actions {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+.edit-button,
+.delete-button {
+    border: none;
+
+    padding: 9px 13px;
+
+    border-radius: 9px;
+
+    font-weight: 600;
+}
+
+.edit-button {
+    background: #eee7fa;
+
+    color: #6c2bd9;
+}
+
+.delete-button {
+    background: #fbe9e9;
+
+    color: #c0392b;
+}
+
+.empty-state {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    color: #777;
+}
+
+
+/* =========================
+   CALENDARIO
+========================= */
+
+.calendar-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+    margin: 0;
+
+    text-transform: capitalize;
+}
+
+.calendar-arrow {
+    border: none;
+
+    background: #f1eff4;
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 50%;
+
+    font-size: 25px;
+
+    color: #6c2bd9;
+}
+
+.calendar-weekdays,
+.calendar-days {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 5px;
+}
+
+.calendar-weekdays span {
+    text-align: center;
+
+    color: #888;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.calendar-days {
+    margin-top: 10px;
+}
+
+.calendar-day {
+    min-height: 44px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 10px;
+
+    position: relative;
+
+    font-size: 14px;
+}
+
+.calendar-day:hover {
+    background: #f1eff4;
+}
+
+.calendar-day.today {
+    font-weight: 800;
+}
+
+.calendar-day.selected {
+    background: #6c2bd9;
+
+    color: white;
+}
+
+.calendar-day.has-journey::after {
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    background: #6c2bd9;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    bottom: 4px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+.calendar-day.selected.has-journey::after {
+    background: white;
+}
+
+.selected-day-title {
+    margin-top: 25px;
+}
+
+.selected-day-title h3 {
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   CLÍNICAS
+========================= */
+
+.clinic-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 14px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.clinic-name {
+    font-size: 19px;
+
+    font-weight: 800;
+}
+
+.clinic-address {
+    color: #666;
+
+    margin-top: 7px;
+}
+
+.clinic-notes {
+    color: #888;
+
+    margin-top: 8px;
+
+    font-size: 14px;
+}
+
+.clinic-actions {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+
+/* =========================
+   AJUSTES
+========================= */
+
+.settings-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 14px;
+
+    display: flex;
+
+    gap: 15px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.settings-icon {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eee7fa;
+
+    border-radius: 13px;
+
+    font-size: 22px;
+}
+
+.settings-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.settings-content h3 {
+    margin: 2px 0 5px;
+
+    font-size: 17px;
+}
+
+.settings-content p {
+    margin: 0 0 12px;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+.settings-input-row {
+    display: flex;
+
+    gap: 8px;
+}
+
+.settings-input-row input {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.settings-content input,
+.settings-select,
+.time-input {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    background: white;
+
+    font-size: 15px;
+}
+
+.settings-title-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.settings-title-row p {
+    margin-bottom: 0;
+}
+
+.app-version {
+    display: inline-block;
+
+    color: #999;
+
+    font-size: 12px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch {
+    position: relative;
+
+    width: 50px;
+    height: 30px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    background: #ccc;
+
+    border-radius: 30px;
+
+    transition: 0.2s;
+}
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    left: 3px;
+    top: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.2s;
+
+    box-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch input:checked + .slider {
+    background: #6c2bd9;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+.bottom-nav {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 75px;
+
+    background: white;
+
+    border-top: 1px solid #eee;
+
+    display: flex;
+
+    justify-content: center;
+
+    z-index: 20;
+
+    padding-bottom:
+        env(safe-area-inset-bottom);
+}
+
+.nav-button {
+    flex: 1;
+
+    max-width: 175px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #888;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 3px;
+}
+
+.nav-button span {
+    font-size: 21px;
+}
+
+.nav-button small {
+    font-size: 11px;
+}
+
+.nav-button.active {
+    color: #6c2bd9;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   MODALES
+========================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.45);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 18px;
+
+    z-index: 100;
+}
+
+.modal-card {
+    background: white;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    border-radius: 22px;
+
+    padding: 22px;
+}
+
+.modal-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+}
+
+.close-button {
+    border: none;
+
+    background: #f1eff4;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+
+    line-height: 1;
+}
+
+.modal-card label {
+    display: block;
+
+    margin: 14px 0 7px;
+
+    font-weight: 600;
+
+    font-size: 14px;
+}
+
+.modal-card input,
+.modal-card select,
+.modal-card textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 11px;
+
+    font-size: 15px;
+}
+
+.modal-card textarea {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+.modal-card .primary-button {
+    margin-top: 20px;
+}
+
+.repeat-options {
+    margin-top: 5px;
+
+    padding: 14px;
+
+    background: #f7f5f9;
+
+    border-radius: 13px;
+}
+
+.repeat-days {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 5px;
+}
+
+.repeat-days label {
+    margin: 0;
+
+    font-weight: 600;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 4px;
+}
+
+.repeat-days input {
+    width: auto;
+}
+
+
+/* =========================
+   IPHONE
+========================= */
+
+@media (max-width: 500px) {
+
+    .top-header {
+        padding-top: 20px;
+    }
+
+    .greeting {
+        font-size: 22px;
+    }
+
+    .page {
+        padding: 18px 14px;
+    }
+
+    .settings-input-row {
+        flex-direction: column;
+    }
+
+    .small-button {
+        width: 100%;
+    }
+
+    .page-title-row {
+        align-items: flex-start;
+    }
+
+    .patients-total {
+        font-size: 11px;
+    }
+
+
+    /* MODAL EN IPHONE */
+
+    .modal {
+        padding: 12px;
+        align-items: center;
+    }
+
+    .modal-card {
+        width: 100%;
+        max-width: 100%;
+        max-height: 88vh;
+
+        padding: 18px;
+
+        border-radius: 20px;
+
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-header {
+        margin-bottom: 14px;
+    }
+
+    .modal-header h2 {
+        font-size: 20px;
+    }
+
+    .close-button {
+        width: 34px;
+        height: 34px;
+        font-size: 22px;
+        flex-shrink: 0;
+    }
+
+    .modal-card label {
+        margin: 11px 0 6px;
+        font-size: 13px;
+    }
+
+    .modal-card input,
+    .modal-card select,
+    .modal-card textarea {
+        width: 100%;
+        min-width: 0;
+
+        padding: 11px;
+
+        font-size: 16px;
+
+        border-radius: 10px;
+    }
+
+    .modal-card input[type="date"],
+    .modal-card input[type="time"] {
+        height: 44px;
+        min-height: 44px;
+    }
+
+    .modal-card textarea {
+        min-height: 75px;
+    }
+
+    .modal-card .primary-button {
+        margin-top: 15px;
+        padding: 13px;
+    }
+
+    .repeat-options {
+        padding: 12px;
+    }
+
+    .repeat-days {
+        gap: 3px;
+    }
+
+    .repeat-days label {
+        font-size: 13px;
+    }
+
+}
+.modal-card input[type="date"],
+.modal-card input[type="time"] {
+    height: 30px;
+    min-height: 30px;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 1;
+    box-sizing: border-box;
+}
