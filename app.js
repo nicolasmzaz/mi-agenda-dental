@@ -220,10 +220,15 @@ document.addEventListener(
 
         }
 
+
         loadSettings();
+
         updateHeader();
+
         loadToday();
+
         loadClinics();
+
         renderCalendar();
 
     }
@@ -241,6 +246,7 @@ startButton.addEventListener(
         const name =
             nameInput.value.trim();
 
+
         if (!name) {
 
             alert(
@@ -251,12 +257,15 @@ startButton.addEventListener(
 
         }
 
+
         userName = name;
+
 
         localStorage.setItem(
             "userName",
             userName
         );
+
 
         showApp();
 
@@ -274,9 +283,13 @@ function showApp() {
         "hidden"
     );
 
+
     updateHeader();
+
     loadToday();
+
     loadClinics();
+
     renderCalendar();
 
 }
@@ -291,6 +304,7 @@ function updateHeader() {
     const today =
         new Date();
 
+
     const formattedDate =
         today.toLocaleDateString(
             "es-ES",
@@ -302,8 +316,10 @@ function updateHeader() {
             }
         );
 
+
     dateText.textContent =
         formattedDate;
+
 
     if (userName) {
 
@@ -344,18 +360,22 @@ function formatDate(date) {
             date.getDate()
         ).padStart(2, "0");
 
+
     return `${year}-${month}-${day}`;
 
 }
 
 
-function formatDateReadable(dateString) {
+function formatDateReadable(
+    dateString
+) {
 
     const date =
         new Date(
             dateString +
             "T00:00:00"
         );
+
 
     return date.toLocaleDateString(
         "es-ES",
@@ -393,6 +413,7 @@ function loadToday() {
     const today =
         getTodayString();
 
+
     const todayList =
         journeys
             .filter(
@@ -406,10 +427,13 @@ function loadToday() {
                     )
             );
 
+
     todayJourneys.innerHTML =
         "";
 
+
     let totalPatients = 0;
+
 
     todayList.forEach(
         journey => {
@@ -419,6 +443,7 @@ function loadToday() {
                     journey.patients || 0
                 );
 
+
             todayJourneys.insertAdjacentHTML(
                 "beforeend",
                 journeyHTML(journey)
@@ -427,14 +452,20 @@ function loadToday() {
         }
     );
 
+
     todayPatients.textContent =
         `${totalPatients} pacientes`;
+
 
     if (todayList.length === 0) {
 
         todayJourneys.innerHTML = `
+
             <div class="empty-state">
-                <div style="font-size:40px;">
+
+                <div
+                    style="font-size:40px;"
+                >
                     🦷
                 </div>
 
@@ -445,10 +476,13 @@ function loadToday() {
                 <p>
                     Disfruta del día o añade una nueva jornada.
                 </p>
+
             </div>
+
         `;
 
     }
+
 
     attachJourneyButtons();
 
@@ -468,31 +502,48 @@ function journeyHTML(journey) {
         ) ||
         "Clínica";
 
+
     return `
+
         <div class="journey-card">
 
             <div class="journey-top">
+
                 <div>
+
                     <div class="journey-clinic">
+
                         🏥
-                        ${escapeHTML(clinicName)}
+                        ${escapeHTML(
+                            clinicName
+                        )}
+
                     </div>
 
+
                     <div class="journey-time">
+
                         ${journey.start}
                         —
                         ${journey.end}
+
                     </div>
+
                 </div>
+
             </div>
+
 
             <div class="journey-info">
 
                 <span class="info-pill">
+
                     👥
                     ${journey.patients || 0}
                     pacientes
+
                 </span>
+
 
                 ${
                     journey.recurring
@@ -506,18 +557,25 @@ function journeyHTML(journey) {
 
             </div>
 
+
             ${
                 journey.notes
                     ? `
                         <div class="journey-notes">
+
                             📝
-                            ${escapeHTML(journey.notes)}
+                            ${escapeHTML(
+                                journey.notes
+                            )}
+
                         </div>
                     `
                     : ""
             }
 
+
             <div class="journey-actions">
+
 
                 <button
                     class="edit-button"
@@ -526,6 +584,7 @@ function journeyHTML(journey) {
                     ✏️ Editar
                 </button>
 
+
                 <button
                     class="delete-button"
                     data-delete-journey="${journey.id}"
@@ -533,9 +592,11 @@ function journeyHTML(journey) {
                     🗑️ Eliminar
                 </button>
 
+
             </div>
 
         </div>
+
     `;
 
 }
@@ -570,6 +631,7 @@ function attachJourneyButtons() {
 
             }
         );
+
 
     document
         .querySelectorAll(
@@ -636,81 +698,105 @@ function openJourneyModal(
     editingJourneyId =
         journeyId;
 
+
     journeyModal.classList.remove(
         "hidden"
     );
 
+
     loadClinicOptions();
+
 
     if (journeyId) {
 
         const journey =
             journeys.find(
                 j =>
-                    j.id === journeyId
+                    j.id ===
+                    journeyId
             );
 
+
         if (!journey) return;
+
 
         journeyModalTitle.textContent =
             "Editar jornada";
 
+
         journeyDate.value =
             journey.date;
+
 
         clinicSelect.value =
             journey.clinicId;
 
+
         startTime.value =
             journey.start;
+
 
         endTime.value =
             journey.end;
 
+
         patientsInput.value =
             journey.patients || "";
+
 
         notesInput.value =
             journey.notes || "";
 
+
         repeatSection.classList.add(
             "hidden"
         );
+
 
     } else {
 
         journeyModalTitle.textContent =
             "Añadir jornada";
 
+
         journeyDate.value =
             date ||
             getTodayString();
 
+
         clinicSelect.value =
             "";
+
 
         startTime.value =
             "";
 
+
         endTime.value =
             "";
+
 
         patientsInput.value =
             "";
 
+
         notesInput.value =
             "";
 
+
         repeatSelect.value =
             "none";
+
 
         repeatOptions.classList.add(
             "hidden"
         );
 
+
         repeatSection.classList.remove(
             "hidden"
         );
+
 
         document
             .querySelectorAll(
@@ -724,6 +810,7 @@ function openJourneyModal(
 
                 }
             );
+
 
         repeatEndDate.value =
             "";
@@ -759,10 +846,13 @@ function closeJourneyModalFunction() {
 function loadClinicOptions() {
 
     clinicSelect.innerHTML = `
+
         <option value="">
             Selecciona una clínica
         </option>
+
     `;
+
 
     clinics.forEach(
         clinic => {
@@ -770,8 +860,12 @@ function loadClinicOptions() {
             clinicSelect.insertAdjacentHTML(
                 "beforeend",
                 `
-                    <option value="${clinic.id}">
-                        ${escapeHTML(clinic.name)}
+                    <option
+                        value="${clinic.id}"
+                    >
+                        ${escapeHTML(
+                            clinic.name
+                        )}
                     </option>
                 `
             );
@@ -832,27 +926,57 @@ saveJourneyButton.addEventListener(
             endTime.value;
 
         const patients =
-            patientsInput.value;
+            Number(
+                patientsInput.value || 0
+            );
 
         const notes =
             notesInput.value.trim();
 
+
         if (!date) {
-            alert("Selecciona una fecha.");
+
+            alert(
+                "Selecciona una fecha."
+            );
+
             return;
+
         }
+
 
         if (!clinicId) {
-            alert("Selecciona una clínica.");
+
+            alert(
+                "Selecciona una clínica."
+            );
+
             return;
+
         }
 
+
         if (!start || !end) {
+
             alert(
                 "Introduce la hora de inicio y finalización."
             );
+
             return;
+
         }
+
+
+        if (end <= start) {
+
+            alert(
+                "La hora de finalización debe ser posterior a la de inicio."
+            );
+
+            return;
+
+        }
+
 
         const clinic =
             clinics.find(
@@ -861,12 +985,17 @@ saveJourneyButton.addEventListener(
                     String(clinicId)
             );
 
+
         if (!clinic) {
+
             alert(
-                "No se ha encontrado la clínica."
+                "La clínica seleccionada no existe."
             );
+
             return;
+
         }
+
 
         /* EDITAR */
 
@@ -874,10 +1003,11 @@ saveJourneyButton.addEventListener(
 
             const index =
                 journeys.findIndex(
-                    j =>
-                        j.id ===
+                    journey =>
+                        journey.id ===
                         editingJourneyId
                 );
+
 
             if (index !== -1) {
 
@@ -886,40 +1016,36 @@ saveJourneyButton.addEventListener(
                     ...journeys[index],
 
                     date,
+
                     clinicId,
-                    clinic: clinic.name,
+
+                    clinic:
+                        clinic.name,
+
                     start,
+
                     end,
+
                     patients,
+
                     notes
 
                 };
 
-                saveJourneys();
-
             }
+
+
+            saveJourneys();
 
             closeJourneyModalFunction();
 
             loadToday();
+
             renderCalendar();
 
-            if (
-                document
-                    .getElementById(
-                        "page-calendario"
-                    )
-                    .classList
-                    .contains("active")
-            ) {
-
-                selectCalendarDay(
-                    selectedCalendarDate
-                );
-
-            }
-
-            editingJourneyId = null;
+            selectCalendarDay(
+                selectedCalendarDate
+            );
 
             return;
 
@@ -932,19 +1058,197 @@ saveJourneyButton.addEventListener(
             repeatSelect.value;
 
 
-        /* SIN REPETICIÓN */
+        if (
+            repeatType ===
+            "weekly"
+        ) {
 
-        if (repeatType === "none") {
-
-            journeys.push({
-
-                id: Date.now(),
+            createWeeklyJourneys(
                 date,
-                clinicId,
-                clinic: clinic.name,
+                clinic,
                 start,
                 end,
                 patients,
+                notes
+            );
+
+        } else {
+
+            const journey = {
+
+                id:
+                    Date.now(),
+
+                date,
+
+                clinicId,
+
+                clinic:
+                    clinic.name,
+
+                start,
+
+                end,
+
+                patients,
+
+                notes
+
+            };
+
+
+            journeys.push(
+                journey
+            );
+
+        }
+
+
+        saveJourneys();
+
+        closeJourneyModalFunction();
+
+        loadToday();
+
+        renderCalendar();
+
+        selectCalendarDay(
+            selectedCalendarDate
+        );
+
+    }
+);
+
+
+/* =========================================
+   JORNADAS SEMANALES
+========================================= */
+
+function createWeeklyJourneys(
+    startDateString,
+    clinic,
+    start,
+    end,
+    patients,
+    notes
+) {
+
+    const selectedDays =
+        Array.from(
+            document.querySelectorAll(
+                ".repeat-day:checked"
+            )
+        ).map(
+            checkbox =>
+                Number(
+                    checkbox.value
+                )
+        );
+
+
+    if (
+        selectedDays.length === 0
+    ) {
+
+        alert(
+            "Selecciona al menos un día de la semana."
+        );
+
+        return;
+
+    }
+
+
+    const endDateString =
+        repeatEndDate.value;
+
+
+    if (!endDateString) {
+
+        alert(
+            "Selecciona hasta qué fecha quieres repetir."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        endDateString <
+        startDateString
+    ) {
+
+        alert(
+            "La fecha final debe ser posterior a la fecha inicial."
+        );
+
+        return;
+
+    }
+
+
+    const seriesId =
+        Date.now();
+
+
+    const current =
+        new Date(
+            startDateString +
+            "T00:00:00"
+        );
+
+
+    const finalDate =
+        new Date(
+            endDateString +
+            "T00:00:00"
+        );
+
+
+    while (
+        current <=
+        finalDate
+    ) {
+
+        const day =
+            current.getDay();
+
+
+        if (
+            selectedDays.includes(
+                day
+            )
+        ) {
+
+            journeys.push({
+
+                id:
+                    Date.now() +
+                    Math.random(),
+
+                seriesId,
+
+                recurring:
+                    true,
+
+                date:
+                    formatDate(
+                        current
+                    ),
+
+                clinicId:
+                    clinic.id,
+
+                clinic:
+                    clinic.name,
+
+                start,
+
+                end,
+
+                patients,
+
                 notes
 
             });
@@ -952,150 +1256,13 @@ saveJourneyButton.addEventListener(
         }
 
 
-        /* REPETICIÓN */
-
-        if (repeatType === "weekly") {
-
-            const selectedDays =
-                Array.from(
-                    document.querySelectorAll(
-                        ".repeat-day:checked"
-                    )
-                ).map(
-                    checkbox =>
-                        Number(
-                            checkbox.value
-                        )
-                );
-
-            const endDate =
-                repeatEndDate.value;
-
-            if (
-                selectedDays.length === 0
-            ) {
-
-                alert(
-                    "Selecciona al menos un día de la semana."
-                );
-
-                return;
-
-            }
-
-            if (!endDate) {
-
-                alert(
-                    "Selecciona hasta qué fecha repetir."
-                );
-
-                return;
-
-            }
-
-            if (endDate < date) {
-
-                alert(
-                    "La fecha final debe ser posterior a la fecha inicial."
-                );
-
-                return;
-
-            }
-
-            const seriesId =
-                Date.now();
-
-            let current =
-                new Date(
-                    date +
-                    "T00:00:00"
-                );
-
-            const finalDate =
-                new Date(
-                    endDate +
-                    "T00:00:00"
-                );
-
-            let occurrence = 0;
-
-            while (
-                current <= finalDate
-            ) {
-
-                const day =
-                    current.getDay();
-
-                if (
-                    selectedDays.includes(
-                        day
-                    )
-                ) {
-
-                    journeys.push({
-
-                        id:
-                            Date.now() +
-                            occurrence,
-
-                        seriesId,
-
-                        recurring: true,
-
-                        date:
-                            formatDate(
-                                current
-                            ),
-
-                        clinicId,
-
-                        clinic:
-                            clinic.name,
-
-                        start,
-                        end,
-                        patients,
-                        notes
-
-                    });
-
-                    occurrence++;
-
-                }
-
-                current.setDate(
-                    current.getDate() + 1
-                );
-
-            }
-
-        }
-
-        saveJourneys();
-
-        closeJourneyModalFunction();
-
-        loadToday();
-        renderCalendar();
-
-        if (
-            document
-                .getElementById(
-                    "page-calendario"
-                )
-                .classList
-                .contains("active")
-        ) {
-
-            selectCalendarDay(
-                selectedCalendarDate
-            );
-
-        }
+        current.setDate(
+            current.getDate() + 1
+        );
 
     }
-);
+
+}
 
 
 /* =========================================
@@ -1106,559 +1273,189 @@ function deleteJourney(id) {
 
     const journey =
         journeys.find(
-            j => j.id === id
+            j =>
+                j.id === id
         );
+
 
     if (!journey) return;
 
-    const confirmed =
-        confirm(
-            "¿Seguro que quieres eliminar esta jornada?"
-        );
 
-    if (!confirmed) return;
+    if (
+        !confirm(
+            "¿Seguro que quieres eliminar esta jornada?"
+        )
+    ) {
+
+        return;
+
+    }
+
 
     journeys =
         journeys.filter(
-            j => j.id !== id
+            j =>
+                j.id !== id
         );
+
 
     saveJourneys();
 
     loadToday();
-    renderCalendar();
-
-    if (
-        document
-            .getElementById(
-                "page-calendario"
-            )
-            .classList
-            .contains("active")
-    ) {
-
-        selectCalendarDay(
-            selectedCalendarDate
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   CALENDARIO
-========================================= */
-
-prevMonth.addEventListener(
-    "click",
-    () => {
-
-        calendarDate.setMonth(
-            calendarDate.getMonth() - 1
-        );
-
-        renderCalendar();
-
-    }
-);
-
-
-nextMonth.addEventListener(
-    "click",
-    () => {
-
-        calendarDate.setMonth(
-            calendarDate.getMonth() + 1
-        );
-
-        renderCalendar();
-
-    }
-);
-
-
-function renderCalendar() {
-
-    const year =
-        calendarDate.getFullYear();
-
-    const month =
-        calendarDate.getMonth();
-
-    calendarMonth.textContent =
-        new Date(
-            year,
-            month,
-            1
-        ).toLocaleDateString(
-            "es-ES",
-            {
-                month: "long",
-                year: "numeric"
-            }
-        );
-
-    calendarDays.innerHTML = "";
-
-    const firstDay =
-        new Date(
-            year,
-            month,
-            1
-        ).getDay();
-
-    const daysInMonth =
-        new Date(
-            year,
-            month + 1,
-            0
-        ).getDate();
-
-    const mondayFirst =
-        firstDay === 0
-            ? 6
-            : firstDay - 1;
-
-    for (
-        let i = 0;
-        i < mondayFirst;
-        i++
-    ) {
-
-        const empty =
-            document.createElement(
-                "div"
-            );
-
-        calendarDays.appendChild(
-            empty
-        );
-
-    }
-
-    for (
-        let day = 1;
-        day <= daysInMonth;
-        day++
-    ) {
-
-        const button =
-            document.createElement(
-                "button"
-            );
-
-        button.className =
-            "calendar-day";
-
-        const date =
-            new Date(
-                year,
-                month,
-                day
-            );
-
-        const dateString =
-            formatDate(date);
-
-        button.textContent =
-            day;
-
-        if (
-            dateString ===
-            getTodayString()
-        ) {
-
-            button.classList.add(
-                "today"
-            );
-
-        }
-
-        if (
-            dateString ===
-            selectedCalendarDate
-        ) {
-
-            button.classList.add(
-                "selected"
-            );
-
-        }
-
-        if (
-            journeys.some(
-                j =>
-                    j.date ===
-                    dateString
-            )
-        ) {
-
-            button.classList.add(
-                "has-journey"
-            );
-
-        }
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                selectCalendarDay(
-                    dateString
-                );
-
-            }
-        );
-
-        calendarDays.appendChild(
-            button
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   SELECCIONAR DÍA
-========================================= */
-
-function selectCalendarDay(
-    dateString
-) {
-
-    selectedCalendarDate =
-        dateString;
 
     renderCalendar();
 
-    selectedDateTitle.textContent =
-        formatDateReadable(
-            dateString
-        );
-
-    const selectedJourneys =
-        journeys
-            .filter(
-                j =>
-                    j.date ===
-                    dateString
-            )
-            .sort(
-                (a, b) =>
-                    a.start.localeCompare(
-                        b.start
-                    )
-            );
-
-    calendarJourneys.innerHTML =
-        "";
-
-    if (
-        selectedJourneys.length === 0
-    ) {
-
-        calendarJourneys.innerHTML = `
-            <div class="empty-state">
-                No hay jornadas para este día.
-            </div>
-        `;
-
-    } else {
-
-        selectedJourneys.forEach(
-            journey => {
-
-                calendarJourneys.insertAdjacentHTML(
-                    "beforeend",
-                    journeyHTML(
-                        journey
-                    )
-                );
-
-            }
-        );
-
-    }
-
-    attachJourneyButtons();
+    selectCalendarDay(
+        selectedCalendarDate
+    );
 
 }
-
-
 /* =========================================
    CLÍNICAS
 ========================================= */
 
-addClinicButton.addEventListener(
-    "click",
-    () =>
-        openClinicModal()
-);
-
-
-closeClinicModal.addEventListener(
-    "click",
-    () => {
-
-        clinicModal.classList.add(
-            "hidden"
-        );
-
-    }
-);
-
-
-function openClinicModal(
-    clinicId = null
-) {
-
-    editingClinicId =
-        clinicId;
-
-    clinicModal.classList.remove(
-        "hidden"
-    );
-
-    if (clinicId) {
-
-        const clinic =
-            clinics.find(
-                c =>
-                    c.id ===
-                    clinicId
-            );
-
-        if (!clinic) return;
-
-        clinicModalTitle.textContent =
-            "Editar clínica";
-
-        clinicName.value =
-            clinic.name || "";
-
-        clinicAddress.value =
-            clinic.address || "";
-
-        clinicNotes.value =
-            clinic.notes || "";
-
-    } else {
-
-        clinicModalTitle.textContent =
-            "Añadir clínica";
-
-        clinicName.value = "";
-        clinicAddress.value = "";
-        clinicNotes.value = "";
-
-    }
-
-}
-
-
-saveClinicButton.addEventListener(
-    "click",
-    () => {
-
-        const name =
-            clinicName.value.trim();
-
-        const address =
-            clinicAddress.value.trim();
-
-        const notes =
-            clinicNotes.value.trim();
-
-        if (!name) {
-
-            alert(
-                "Introduce el nombre de la clínica."
-            );
-
-            return;
-
-        }
-
-        if (editingClinicId) {
-
-            const index =
-                clinics.findIndex(
-                    c =>
-                        c.id ===
-                        editingClinicId
-                );
-
-            if (index !== -1) {
-
-                clinics[index] = {
-
-                    ...clinics[index],
-
-                    name,
-                    address,
-                    notes
-
-                };
-
-                journeys =
-                    journeys.map(
-                        journey => {
-
-                            if (
-                                journey.clinicId ===
-                                editingClinicId
-                            ) {
-
-                                return {
-
-                                    ...journey,
-
-                                    clinic: name
-
-                                };
-
-                            }
-
-                            return journey;
-
-                        }
-                    );
-
-                saveJourneys();
-
-            }
-
-        } else {
-
-            clinics.push({
-
-                id: Date.now(),
-                name,
-                address,
-                notes
-
-            });
-
-        }
-
-        localStorage.setItem(
-            "clinics",
-            JSON.stringify(
-                clinics
-            )
-        );
-
-        clinicModal.classList.add(
-            "hidden"
-        );
-
-        editingClinicId = null;
-
-        loadClinics();
-        loadClinicOptions();
-        loadToday();
-        renderCalendar();
-
-    }
-);
-
-
-/* =========================================
-   CARGAR CLÍNICAS
-========================================= */
-
 function loadClinics() {
 
-    clinicsList.innerHTML =
-        "";
+    clinicsList.innerHTML = "";
 
-    if (
-        clinics.length === 0
-    ) {
+
+    if (clinics.length === 0) {
 
         clinicsList.innerHTML = `
+
             <div class="empty-state">
 
-                <div style="font-size:40px;">
+                <div
+                    style="font-size:40px;"
+                >
                     🏥
                 </div>
 
                 <h3>
-                    No tienes clínicas guardadas
+                    No tienes clínicas
                 </h3>
 
                 <p>
-                    Añade tu primera clínica para empezar.
+                    Añade tu primera clínica para poder crear jornadas.
                 </p>
 
             </div>
+
         `;
 
         return;
 
     }
 
+
     clinics.forEach(
         clinic => {
 
             clinicsList.insertAdjacentHTML(
                 "beforeend",
-                `
-                    <div class="clinic-card">
-
-                        <div class="clinic-name">
-                            🏥
-                            ${escapeHTML(clinic.name)}
-                        </div>
-
-                        ${
-                            clinic.address
-                                ? `
-                                    <div class="clinic-address">
-                                        📍
-                                        ${escapeHTML(clinic.address)}
-                                    </div>
-                                `
-                                : ""
-                        }
-
-                        ${
-                            clinic.notes
-                                ? `
-                                    <div class="clinic-notes">
-                                        📝
-                                        ${escapeHTML(clinic.notes)}
-                                    </div>
-                                `
-                                : ""
-                        }
-
-                        <div class="clinic-actions">
-
-                            <button
-                                class="edit-button"
-                                data-edit-clinic="${clinic.id}"
-                            >
-                                ✏️ Editar
-                            </button>
-
-                            <button
-                                class="delete-button"
-                                data-delete-clinic="${clinic.id}"
-                            >
-                                🗑️ Eliminar
-                            </button>
-
-                        </div>
-
-                    </div>
-                `
+                clinicHTML(clinic)
             );
 
         }
     );
+
+
+    attachClinicButtons();
+
+}
+
+
+/* =========================================
+   HTML CLÍNICA
+========================================= */
+
+function clinicHTML(clinic) {
+
+    return `
+
+        <div class="clinic-card">
+
+            <div class="clinic-header">
+
+                <div class="clinic-icon">
+                    🏥
+                </div>
+
+
+                <div class="clinic-main">
+
+                    <h3>
+                        ${escapeHTML(
+                            clinic.name
+                        )}
+                    </h3>
+
+
+                    ${
+                        clinic.address
+                            ? `
+                                <p>
+                                    📍
+                                    ${escapeHTML(
+                                        clinic.address
+                                    )}
+                                </p>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+
+            ${
+                clinic.notes
+                    ? `
+                        <div class="clinic-notes">
+
+                            📝
+                            ${escapeHTML(
+                                clinic.notes
+                            )}
+
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            <div class="clinic-actions">
+
+                <button
+                    class="edit-button"
+                    data-edit-clinic="${clinic.id}"
+                >
+                    ✏️ Editar
+                </button>
+
+
+                <button
+                    class="delete-button"
+                    data-delete-clinic="${clinic.id}"
+                >
+                    🗑️ Eliminar
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   BOTONES CLÍNICAS
+========================================= */
+
+function attachClinicButtons() {
 
     document
         .querySelectorAll(
@@ -1683,6 +1480,7 @@ function loadClinics() {
 
             }
         );
+
 
     document
         .querySelectorAll(
@@ -1712,38 +1510,278 @@ function loadClinics() {
 
 
 /* =========================================
+   AÑADIR CLÍNICA
+========================================= */
+
+addClinicButton.addEventListener(
+    "click",
+    () => {
+
+        openClinicModal();
+
+    }
+);
+
+
+/* =========================================
+   ABRIR MODAL CLÍNICA
+========================================= */
+
+function openClinicModal(
+    clinicId = null
+) {
+
+    editingClinicId =
+        clinicId;
+
+
+    clinicModal.classList.remove(
+        "hidden"
+    );
+
+
+    if (clinicId) {
+
+        const clinic =
+            clinics.find(
+                c =>
+                    c.id ===
+                    clinicId
+            );
+
+
+        if (!clinic) return;
+
+
+        clinicModalTitle.textContent =
+            "Editar clínica";
+
+
+        clinicName.value =
+            clinic.name || "";
+
+
+        clinicAddress.value =
+            clinic.address || "";
+
+
+        clinicNotes.value =
+            clinic.notes || "";
+
+
+    } else {
+
+        clinicModalTitle.textContent =
+            "Añadir clínica";
+
+
+        clinicName.value =
+            "";
+
+
+        clinicAddress.value =
+            "";
+
+
+        clinicNotes.value =
+            "";
+
+    }
+
+}
+
+
+/* =========================================
+   CERRAR MODAL CLÍNICA
+========================================= */
+
+closeClinicModal.addEventListener(
+    "click",
+    () => {
+
+        clinicModal.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+/* =========================================
+   GUARDAR CLÍNICA
+========================================= */
+
+saveClinicButton.addEventListener(
+    "click",
+    () => {
+
+        const name =
+            clinicName.value.trim();
+
+        const address =
+            clinicAddress.value.trim();
+
+        const notes =
+            clinicNotes.value.trim();
+
+
+        if (!name) {
+
+            alert(
+                "Escribe el nombre de la clínica."
+            );
+
+            return;
+
+        }
+
+
+        /* EDITAR */
+
+        if (editingClinicId) {
+
+            const index =
+                clinics.findIndex(
+                    clinic =>
+                        clinic.id ===
+                        editingClinicId
+                );
+
+
+            if (index !== -1) {
+
+                clinics[index] = {
+
+                    ...clinics[index],
+
+                    name,
+
+                    address,
+
+                    notes
+
+                };
+
+
+                journeys =
+                    journeys.map(
+                        journey => {
+
+                            if (
+                                journey.clinicId ===
+                                editingClinicId
+                            ) {
+
+                                return {
+
+                                    ...journey,
+
+                                    clinic:
+                                        name
+
+                                };
+
+                            }
+
+
+                            return journey;
+
+                        }
+                    );
+
+            }
+
+
+        } else {
+
+            /* NUEVA CLÍNICA */
+
+            const newClinic = {
+
+                id:
+                    Date.now(),
+
+                name,
+
+                address,
+
+                notes
+
+            };
+
+
+            clinics.push(
+                newClinic
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "clinics",
+            JSON.stringify(
+                clinics
+            )
+        );
+
+
+        saveJourneys();
+
+
+        clinicModal.classList.add(
+            "hidden"
+        );
+
+
+        loadClinics();
+
+        loadToday();
+
+        renderCalendar();
+
+    }
+);
+
+
+/* =========================================
    ELIMINAR CLÍNICA
 ========================================= */
 
 function deleteClinic(id) {
 
-    const used =
-        journeys.some(
-            journey =>
-                journey.clinicId === id
+    const clinic =
+        clinics.find(
+            c =>
+                c.id === id
         );
 
-    let message =
-        "¿Seguro que quieres eliminar esta clínica?";
 
-    if (used) {
+    if (!clinic) return;
 
-        message +=
-            "\n\nLas jornadas existentes NO se eliminarán.";
 
-    }
-
-    if (!confirm(message)) {
+    if (
+        !confirm(
+            `¿Seguro que quieres eliminar la clínica "${clinic.name}"?`
+        )
+    ) {
 
         return;
 
     }
 
+
+    /*
+       IMPORTANTE:
+       Al eliminar una clínica NO
+       eliminamos sus jornadas.
+    */
+
     clinics =
         clinics.filter(
-            clinic =>
-                clinic.id !== id
+            c =>
+                c.id !== id
         );
+
 
     localStorage.setItem(
         "clinics",
@@ -1752,173 +1790,952 @@ function deleteClinic(id) {
         )
     );
 
+
     loadClinics();
-    loadClinicOptions();
 
 }
 
 
 /* =========================================
-   AJUSTES
+   CALENDARIO
 ========================================= */
 
-function loadSettings() {
+function renderCalendar() {
 
-    settingsName.value =
-        localStorage.getItem(
-            "userName"
-        ) || "";
+    const year =
+        calendarDate.getFullYear();
 
-    const notifications =
-        localStorage.getItem(
-            "notificationsEnabled"
+    const month =
+        calendarDate.getMonth();
+
+
+    const monthName =
+        calendarDate.toLocaleDateString(
+            "es-ES",
+            {
+                month: "long",
+                year: "numeric"
+            }
         );
 
-    notificationsToggle.checked =
-        notifications === null
-            ? true
-            : notifications ===
-              "true";
 
-    notificationTime.value =
-        localStorage.getItem(
-            "notificationTime"
-        ) || "06:00";
+    calendarMonth.textContent =
+        monthName.charAt(0).toUpperCase() +
+        monthName.slice(1);
 
-    reminderMinutes.value =
-        localStorage.getItem(
-            "reminderMinutes"
-        ) || "30";
+
+    calendarDays.innerHTML = "";
+
+
+    /*
+       Día de la semana del primer día.
+       JS usa domingo = 0.
+       Lo convertimos para que lunes sea 0.
+    */
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    const mondayFirst =
+        firstDay === 0
+            ? 6
+            : firstDay - 1;
+
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    /*
+       Días del mes anterior
+    */
+
+    const previousMonthDays =
+        new Date(
+            year,
+            month,
+            0
+        ).getDate();
+
+
+    for (
+        let i = mondayFirst - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const day =
+            previousMonthDays -
+            i;
+
+
+        const cell =
+            document.createElement(
+                "div"
+            );
+
+
+        cell.className =
+            "calendar-day other-month";
+
+
+        cell.innerHTML = `
+            <span>
+                ${day}
+            </span>
+        `;
+
+
+        calendarDays.appendChild(
+            cell
+        );
+
+    }
+
+
+    /*
+       Días del mes actual
+    */
+
+    for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+    ) {
+
+        const cell =
+            document.createElement(
+                "div"
+            );
+
+
+        cell.className =
+            "calendar-day";
+
+
+        const dateString =
+            `${year}-${String(
+                month + 1
+            ).padStart(2, "0")}-${String(
+                day
+            ).padStart(2, "0")}`;
+
+
+        if (
+            dateString ===
+            getTodayString()
+        ) {
+
+            cell.classList.add(
+                "today"
+            );
+
+        }
+
+
+        if (
+            dateString ===
+            selectedCalendarDate
+        ) {
+
+            cell.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        const hasJourneys =
+            journeys.some(
+                journey =>
+                    journey.date ===
+                    dateString
+            );
+
+
+        cell.innerHTML = `
+
+            <span>
+                ${day}
+            </span>
+
+            ${
+                hasJourneys
+                    ? `
+                        <div class="calendar-dot"></div>
+                    `
+                    : ""
+            }
+
+        `;
+
+
+        cell.addEventListener(
+            "click",
+            () => {
+
+                selectCalendarDay(
+                    dateString
+                );
+
+            }
+        );
+
+
+        calendarDays.appendChild(
+            cell
+        );
+
+    }
+
+
+    /*
+       Rellenar las últimas casillas
+       para completar semanas.
+    */
+
+    const totalCells =
+        mondayFirst +
+        daysInMonth;
+
+
+    const remaining =
+        totalCells % 7 === 0
+            ? 0
+            : 7 -
+              (totalCells % 7);
+
+
+    for (
+        let day = 1;
+        day <= remaining;
+        day++
+    ) {
+
+        const cell =
+            document.createElement(
+                "div"
+            );
+
+
+        cell.className =
+            "calendar-day other-month";
+
+
+        cell.innerHTML = `
+            <span>
+                ${day}
+            </span>
+        `;
+
+
+        calendarDays.appendChild(
+            cell
+        );
+
+    }
+
+
+    selectCalendarDay(
+        selectedCalendarDate
+    );
 
 }
 
 
-/* CAMBIAR NOMBRE */
+/* =========================================
+   SELECCIONAR DÍA CALENDARIO
+========================================= */
 
-saveNameButton.addEventListener(
+function selectCalendarDay(
+    dateString
+) {
+
+    selectedCalendarDate =
+        dateString;
+
+
+    selectedDateTitle.textContent =
+        formatDateReadable(
+            dateString
+        );
+
+
+    const list =
+        journeys
+            .filter(
+                journey =>
+                    journey.date ===
+                    dateString
+            )
+            .sort(
+                (a, b) =>
+                    a.start.localeCompare(
+                        b.start
+                    )
+            );
+
+
+    calendarJourneys.innerHTML =
+        "";
+
+
+    if (list.length === 0) {
+
+        calendarJourneys.innerHTML = `
+
+            <div class="empty-state">
+
+                <div
+                    style="font-size:36px;"
+                >
+                    📅
+                </div>
+
+                <h3>
+                    No hay jornadas
+                </h3>
+
+                <p>
+                    No tienes ninguna jornada programada para este día.
+                </p>
+
+            </div>
+
+        `;
+
+    } else {
+
+        list.forEach(
+            journey => {
+
+                calendarJourneys.insertAdjacentHTML(
+                    "beforeend",
+                    journeyHTML(
+                        journey
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    attachJourneyButtons();
+
+
+    /*
+       Actualizamos la selección
+       visual del calendario.
+    */
+
+    document
+        .querySelectorAll(
+            ".calendar-day"
+        )
+        .forEach(
+            cell => {
+
+                cell.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+    /*
+       Volvemos a renderizar únicamente
+       si estamos en el mes mostrado.
+    */
+
+    const year =
+        calendarDate.getFullYear();
+
+    const month =
+        calendarDate.getMonth();
+
+
+    const selected =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    if (
+        selected.getFullYear() ===
+            year &&
+        selected.getMonth() ===
+            month
+    ) {
+
+        const day =
+            selected.getDate();
+
+
+        const dayCells =
+            document.querySelectorAll(
+                ".calendar-day:not(.other-month)"
+            );
+
+
+        dayCells.forEach(
+            cell => {
+
+                const span =
+                    cell.querySelector(
+                        "span"
+                    );
+
+
+                if (
+                    span &&
+                    Number(
+                        span.textContent
+                    ) === day
+                ) {
+
+                    cell.classList.add(
+                        "selected"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CAMBIAR MES
+========================================= */
+
+prevMonth.addEventListener(
     "click",
     () => {
 
-        const newName =
-            settingsName.value.trim();
-
-        if (!newName) {
-
-            alert(
-                "Introduce un nombre."
-            );
-
-            return;
-
-        }
-
-        userName =
-            newName;
-
-        localStorage.setItem(
-            "userName",
-            userName
+        calendarDate.setMonth(
+            calendarDate.getMonth() - 1
         );
 
-        updateHeader();
 
-        alert(
-            "Nombre guardado correctamente."
-        );
+        renderCalendar();
 
     }
 );
 
 
-/* =========================================
-   NOTIFICACIONES
+nextMonth.addEventListener(
+    "click",
+    () => {
+
+        calendarDate.setMonth(
+            calendarDate.getMonth() + 1
+        );
+
+
+        renderCalendar();
+
+    }
+);
+ /* =========================================
+   AJUSTES
 ========================================= */
 
-notificationsToggle.addEventListener(
-    "change",
-    async () => {
+function loadSettings() {
 
-        if (notificationsToggle.checked) {
+    if (settingsName) {
 
-            if ("Notification" in window) {
+        settingsName.value =
+            localStorage.getItem(
+                "userName"
+            ) || "";
 
-                const permission =
-                    await Notification.requestPermission();
+    }
 
-                if (
-                    permission !==
-                    "granted"
-                ) {
 
-                    notificationsToggle.checked =
-                        false;
+    if (notificationsToggle) {
 
-                    localStorage.setItem(
-                        "notificationsEnabled",
-                        "false"
-                    );
+        notificationsToggle.checked =
+            localStorage.getItem(
+                "notificationsEnabled"
+            ) === "true";
 
-                    alert(
-                        "Para recibir notificaciones debes permitirlas en los ajustes del dispositivo."
-                    );
+    }
 
-                    return;
 
-                }
+    if (notificationTime) {
 
-            } else {
+        notificationTime.value =
+            localStorage.getItem(
+                "notificationTime"
+            ) || "06:00";
 
-                notificationsToggle.checked =
-                    false;
+    }
 
-                localStorage.setItem(
-                    "notificationsEnabled",
-                    "false"
-                );
+
+    if (reminderMinutes) {
+
+        reminderMinutes.value =
+            localStorage.getItem(
+                "reminderMinutes"
+            ) || "0";
+
+    }
+
+}
+
+
+/* =========================================
+   GUARDAR NOMBRE
+========================================= */
+
+if (saveNameButton) {
+
+    saveNameButton.addEventListener(
+        "click",
+        () => {
+
+            const newName =
+                settingsName.value.trim();
+
+
+            if (!newName) {
 
                 alert(
-                    "Este dispositivo no admite notificaciones web."
+                    "Escribe un nombre."
                 );
 
                 return;
 
             }
 
+
+            userName =
+                newName;
+
+
+            localStorage.setItem(
+                "userName",
+                userName
+            );
+
+
+            updateHeader();
+
+
+            alert(
+                "Nombre actualizado correctamente."
+            );
+
         }
+    );
 
-        localStorage.setItem(
-            "notificationsEnabled",
-            notificationsToggle.checked
+}
+
+
+/* =========================================
+   PREFERENCIAS DE NOTIFICACIONES
+========================================= */
+
+if (notificationTime) {
+
+    notificationTime.addEventListener(
+        "change",
+        () => {
+
+            localStorage.setItem(
+                "notificationTime",
+                notificationTime.value
+            );
+
+        }
+    );
+
+}
+
+
+if (reminderMinutes) {
+
+    reminderMinutes.addEventListener(
+        "change",
+        () => {
+
+            localStorage.setItem(
+                "reminderMinutes",
+                reminderMinutes.value
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   NOTIFICACIONES PUSH
+========================================= */
+
+const VAPID_PUBLIC_KEY =
+    "BH-Zp9xbaHf9Iqxx2tBtgXnBZDYOyZEXuWIyJgjLj4Pr3HJjRIo4Mc0CLdjE6JCAa9Gi_EUe7gXBRXO6GtOFY4k";
+
+
+function urlBase64ToUint8Array(
+    base64String
+) {
+
+    const padding =
+        "=".repeat(
+            (4 -
+                base64String.length % 4) %
+                4
+        );
+
+
+    const base64 =
+        (
+            base64String +
+            padding
+        )
+            .replace(
+                /-/g,
+                "+"
+            )
+            .replace(
+                /_/g,
+                "/"
+            );
+
+
+    const rawData =
+        window.atob(
+            base64
+        );
+
+
+    return Uint8Array.from(
+        [...rawData].map(
+            char =>
+                char.charCodeAt(0)
+        )
+    );
+
+}
+
+
+async function subscribeToPush() {
+
+    if (
+        !("serviceWorker" in navigator)
+    ) {
+
+        throw new Error(
+            "Este dispositivo no admite Service Worker."
         );
 
     }
-);
 
 
-/* HORA */
+    if (
+        !("PushManager" in window)
+    ) {
 
-notificationTime.addEventListener(
-    "change",
-    () => {
-
-        localStorage.setItem(
-            "notificationTime",
-            notificationTime.value
+        throw new Error(
+            "Este dispositivo no admite Web Push."
         );
 
     }
-);
 
 
-/* RECORDATORIO */
+    const registration =
+        await navigator
+            .serviceWorker
+            .ready;
 
-reminderMinutes.addEventListener(
-    "change",
-    () => {
 
-        localStorage.setItem(
-            "reminderMinutes",
-            reminderMinutes.value
+    let subscription =
+        await registration
+            .pushManager
+            .getSubscription();
+
+
+    if (!subscription) {
+
+        subscription =
+            await registration
+                .pushManager
+                .subscribe({
+
+                    userVisibleOnly:
+                        true,
+
+                    applicationServerKey:
+                        urlBase64ToUint8Array(
+                            VAPID_PUBLIC_KEY
+                        )
+
+                });
+
+    }
+
+
+    localStorage.setItem(
+        "pushSubscription",
+        JSON.stringify(
+            subscription.toJSON()
+        )
+    );
+
+
+    return subscription;
+
+}
+
+
+/* =========================================
+   ACTIVAR / DESACTIVAR NOTIFICACIONES
+========================================= */
+
+if (notificationsToggle) {
+
+    notificationsToggle.addEventListener(
+        "change",
+        async () => {
+
+            if (
+                notificationsToggle.checked
+            ) {
+
+                if (
+                    "Notification" in
+                    window
+                ) {
+
+                    const permission =
+                        await Notification
+                            .requestPermission();
+
+
+                    if (
+                        permission !==
+                        "granted"
+                    ) {
+
+                        notificationsToggle.checked =
+                            false;
+
+
+                        localStorage.setItem(
+                            "notificationsEnabled",
+                            "false"
+                        );
+
+
+                        alert(
+                            "Para recibir notificaciones debes permitirlas en los ajustes del dispositivo."
+                        );
+
+
+                        return;
+
+                    }
+
+                } else {
+
+                    notificationsToggle.checked =
+                        false;
+
+
+                    localStorage.setItem(
+                        "notificationsEnabled",
+                        "false"
+                    );
+
+
+                    alert(
+                        "Este dispositivo no admite notificaciones web."
+                    );
+
+
+                    return;
+
+                }
+
+
+                try {
+
+                    await subscribeToPush();
+
+
+                    console.log(
+                        "Mi Agenda Dental: suscripción Push creada"
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Error creando la suscripción Push:",
+                        error
+                    );
+
+
+                    notificationsToggle.checked =
+                        false;
+
+
+                    localStorage.setItem(
+                        "notificationsEnabled",
+                        "false"
+                    );
+
+
+                    alert(
+                        "No se ha podido activar el sistema de notificaciones. Comprueba que Mi Agenda Dental está instalada en la pantalla de inicio y vuelve a intentarlo."
+                    );
+
+
+                    return;
+
+                }
+
+            }
+
+
+            localStorage.setItem(
+                "notificationsEnabled",
+                notificationsToggle.checked
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+const navButtons =
+    document.querySelectorAll(
+        ".nav-button"
+    );
+
+
+const pages =
+    document.querySelectorAll(
+        ".page"
+    );
+
+
+navButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const pageName =
+                    button.dataset.page;
+
+
+                navButtons.forEach(
+                    navButton => {
+
+                        navButton.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                pages.forEach(
+                    page => {
+
+                        page.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                const targetPage =
+                    document.getElementById(
+                        `page-${pageName}`
+                    );
+
+
+                if (targetPage) {
+
+                    targetPage.classList.add(
+                        "active"
+                    );
+
+                }
+
+
+                if (
+                    pageName ===
+                    "hoy"
+                ) {
+
+                    loadToday();
+
+                }
+
+
+                if (
+                    pageName ===
+                    "calendario"
+                ) {
+
+                    renderCalendar();
+
+                }
+
+
+                if (
+                    pageName ===
+                    "clinicas"
+                ) {
+
+                    loadClinics();
+
+                }
+
+
+                if (
+                    pageName ===
+                    "ajustes"
+                ) {
+
+                    loadSettings();
+
+                }
+
+            }
         );
 
     }
@@ -1926,6 +2743,299 @@ reminderMinutes.addEventListener(
 
 
 /* =========================================
+   CERRAR MODALES AL PULSAR FUERA
+========================================= */
+
+if (journeyModal) {
+
+    journeyModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                journeyModal
+            ) {
+
+                closeJourneyModalFunction();
+
+            }
+
+        }
+    );
+
+}
+
+
+if (clinicModal) {
+
+    clinicModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                clinicModal
+            ) {
+
+                clinicModal.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   ESCAPE
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            if (
+                journeyModal &&
+                !journeyModal.classList.contains(
+                    "hidden"
+                )
+            ) {
+
+                closeJourneyModalFunction();
+
+            }
+
+
+            if (
+                clinicModal &&
+                !clinicModal.classList.contains(
+                    "hidden"
+                )
+            ) {
+
+                clinicModal.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   ESCAPAR HTML
+========================================= */
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   UTILIDADES
+========================================= */
+
+function getClinicName(
+    clinicId
+) {
+
+    const clinic =
+        clinics.find(
+            c =>
+                String(c.id) ===
+                String(clinicId)
+        );
+
+
+    return clinic
+        ? clinic.name
+        : "";
+
+}
+
+
+/* =========================================
+   ACTUALIZAR JORNADAS AL CAMBIAR CLÍNICA
+========================================= */
+
+function refreshJourneyClinicNames() {
+
+    let changed =
+        false;
+
+
+    journeys =
+        journeys.map(
+            journey => {
+
+                const clinic =
+                    clinics.find(
+                        c =>
+                            String(c.id) ===
+                            String(
+                                journey.clinicId
+                            )
+                    );
+
+
+                if (
+                    clinic &&
+                    journey.clinic !==
+                        clinic.name
+                ) {
+
+                    changed =
+                        true;
+
+
+                    return {
+
+                        ...journey,
+
+                        clinic:
+                            clinic.name
+
+                    };
+
+                }
+
+
+                return journey;
+
+            }
+        );
+
+
+    if (changed) {
+
+        saveJourneys();
+
+    }
+
+}
+
+
+/* =========================================
+   VISIBILIDAD DE LA APP
+========================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (
+            !document.hidden
+        ) {
+
+            refreshJourneyClinicNames();
+
+            loadToday();
+
+            loadClinics();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   INICIALIZACIÓN EXTRA
+========================================= */
+
+refreshJourneyClinicNames();
+
+loadSettings();
+
+updateHeader();
+
+loadToday();
+
+loadClinics();
+
+renderCalendar();
+
+
+/* =========================================
+   SERVICE WORKER
+========================================= */
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register(
+                    "./sw.js"
+                )
+                .then(
+                    registration => {
+
+                        console.log(
+                            "Mi Agenda Dental: Service Worker registrado",
+                            registration.scope
+                        );
+
+                    }
+                )
+                .catch(
+                    error => {
+
+                        console.error(
+                            "Error registrando Service Worker:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+ /* =========================================
    NAVEGACIÓN
 ========================================= */
 
@@ -1941,7 +3051,9 @@ document
                 () => {
 
                     const page =
-                        button.dataset.page;
+                        button.dataset
+                            .page;
+
 
                     document
                         .querySelectorAll(
@@ -1957,9 +3069,11 @@ document
                             }
                         );
 
+
                     button.classList.add(
                         "active"
                     );
+
 
                     document
                         .querySelectorAll(
@@ -1975,10 +3089,12 @@ document
                             }
                         );
 
+
                     const target =
                         document.getElementById(
                             `page-${page}`
                         );
+
 
                     if (target) {
 
@@ -1988,11 +3104,16 @@ document
 
                     }
 
-                    if (page === "hoy") {
+
+                    if (
+                        page ===
+                        "hoy"
+                    ) {
 
                         loadToday();
 
                     }
+
 
                     if (
                         page ===
@@ -2007,6 +3128,7 @@ document
 
                     }
 
+
                     if (
                         page ===
                         "clinicas"
@@ -2015,6 +3137,7 @@ document
                         loadClinics();
 
                     }
+
 
                     if (
                         page ===
@@ -2037,7 +3160,8 @@ document
 ========================================= */
 
 if (
-    "serviceWorker" in navigator
+    "serviceWorker" in
+    navigator
 ) {
 
     window.addEventListener(
@@ -2085,6 +3209,7 @@ function getClinicName(id) {
                 String(id)
         );
 
+
     return clinic
         ? clinic.name
         : "";
@@ -2102,6 +3227,7 @@ function escapeHTML(text) {
         return "";
 
     }
+
 
     return String(text)
 
