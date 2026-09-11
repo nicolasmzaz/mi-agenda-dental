@@ -2625,42 +2625,35 @@ reminderMinutes.addEventListener(
 
     }
 );
-/* =========================================
+//* =========================================
    NAVEGACIÓN
 ========================================= */
 
-const navButtons =
-    document.querySelectorAll(
-        ".nav-button"
-    );
-
-
-const pages =
-    document.querySelectorAll(
-        ".page"
-    );
-
-
-navButtons.forEach(
-    button => {
+document
+    .querySelectorAll(".nav-button")
+    .forEach(button => {
 
         button.addEventListener(
             "click",
             () => {
 
-                const target =
+                const page =
                     button.dataset.page;
 
 
-                navButtons.forEach(
-                    item => {
+                /* BOTÓN ACTIVO */
 
-                        item.classList.remove(
+                document
+                    .querySelectorAll(
+                        ".nav-button"
+                    )
+                    .forEach(btn => {
+
+                        btn.classList.remove(
                             "active"
                         );
 
-                    }
-                );
+                    });
 
 
                 button.classList.add(
@@ -2668,35 +2661,67 @@ navButtons.forEach(
                 );
 
 
-                pages.forEach(
-                    page => {
+                /* OCULTAR TODAS LAS SECCIONES */
 
-                        page.classList.remove(
-                            "active"
+                const sections = {
+
+                    hoy:
+                        document.getElementById(
+                            "todaySection"
+                        ),
+
+                    calendario:
+                        document.getElementById(
+                            "calendarSection"
+                        ),
+
+                    clinicas:
+                        document.getElementById(
+                            "clinicsSection"
+                        ),
+
+                    ajustes:
+                        document.getElementById(
+                            "settingsSection"
+                        )
+
+                };
+
+
+                Object.values(
+                    sections
+                ).forEach(section => {
+
+                    if (section) {
+
+                        section.classList.add(
+                            "hidden"
                         );
 
                     }
-                );
+
+                });
 
 
-                const targetPage =
-                    document.getElementById(
-                        target
-                    );
+                /* MOSTRAR LA SECCIÓN ELEGIDA */
+
+                const target =
+                    sections[page];
 
 
-                if (targetPage) {
+                if (target) {
 
-                    targetPage.classList.add(
-                        "active"
+                    target.classList.remove(
+                        "hidden"
                     );
 
                 }
 
 
+                /* ACTUALIZAR CONTENIDO */
+
                 if (
-                    target ===
-                    "hoy"
+                    page === "hoy"
                 ) {
 
                     updateHeader();
@@ -2707,18 +2732,20 @@ navButtons.forEach(
 
 
                 if (
-                    target ===
-                    "calendario"
+                    page === "calendario"
                 ) {
 
                     renderCalendar();
+
+                    selectCalendarDay(
+                        selectedCalendarDate
+                    );
 
                 }
 
 
                 if (
-                    target ===
-                    "clinicas"
+                    page === "clinicas"
                 ) {
 
                     loadClinics();
@@ -2727,8 +2754,7 @@ navButtons.forEach(
 
 
                 if (
-                    target ===
-                    "ajustes"
+                    page === "ajustes"
                 ) {
 
                     loadSettings();
@@ -2738,9 +2764,7 @@ navButtons.forEach(
             }
         );
 
-    }
-);
-
+    });
 
 /* =========================================
    CERRAR MODALES
