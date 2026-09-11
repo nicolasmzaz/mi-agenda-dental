@@ -2631,141 +2631,94 @@ reminderMinutes.addEventListener(
 
 document
     .querySelectorAll(".nav-button")
-    .forEach(button => {
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                const page =
-                    button.dataset.page;
+                    const page =
+                        button.dataset.page;
 
+                    document
+                        .querySelectorAll(
+                            ".nav-button"
+                        )
+                        .forEach(
+                            btn => {
 
-                /* BOTÓN ACTIVO */
+                                btn.classList.remove(
+                                    "active"
+                                );
 
-                document
-                    .querySelectorAll(
-                        ".nav-button"
-                    )
-                    .forEach(btn => {
-
-                        btn.classList.remove(
-                            "active"
+                            }
                         );
 
-                    });
+                    button.classList.add(
+                        "active"
+                    );
 
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                /* OCULTAR TODAS LAS SECCIONES */
-
-                const sections = {
-
-                    hoy:
-                        document.getElementById(
-                            "todaySection"
-                        ),
-
-                    calendario:
-                        document.getElementById(
-                            "calendarSection"
-                        ),
-
-                    clinicas:
-                        document.getElementById(
-                            "clinicsSection"
-                        ),
-
-                    ajustes:
-                        document.getElementById(
-                            "settingsSection"
+                    document
+                        .querySelectorAll(
+                            ".page"
                         )
+                        .forEach(
+                            section => {
 
-                };
+                                section.classList.remove(
+                                    "active"
+                                );
 
+                            }
+                        );
 
-                Object.values(
-                    sections
-                ).forEach(section => {
+                    const target =
+                        document.getElementById(
+                            `page-${page}`
+                        );
 
-                    if (section) {
+                    if (target) {
 
-                        section.classList.add(
-                            "hidden"
+                        target.classList.add(
+                            "active"
                         );
 
                     }
 
-                });
+                    if (page === "hoy") {
 
+                        loadToday();
 
-                /* MOSTRAR LA SECCIÓN ELEGIDA */
+                    }
 
-                const target =
-                    sections[page];
+                    if (page === "calendario") {
 
+                        renderCalendar();
 
-                if (target) {
+                        selectCalendarDay(
+                            selectedCalendarDate
+                        );
 
-                    target.classList.remove(
-                        "hidden"
-                    );
+                    }
 
-                }
+                    if (page === "clinicas") {
 
+                        loadClinics();
 
-                /* ACTUALIZAR CONTENIDO */
+                    }
 
-                if (
-                    page === "hoy"
-                ) {
+                    if (page === "ajustes") {
 
-                    updateHeader();
+                        loadSettings();
 
-                    loadToday();
-
-                }
-
-
-                if (
-                    page === "calendario"
-                ) {
-
-                    renderCalendar();
-
-                    selectCalendarDay(
-                        selectedCalendarDate
-                    );
+                    }
 
                 }
+            );
 
-
-                if (
-                    page === "clinicas"
-                ) {
-
-                    loadClinics();
-
-                }
-
-
-                if (
-                    page === "ajustes"
-                ) {
-
-                    loadSettings();
-
-                }
-
-            }
-        );
-
-    });
-
+        }
+    );
 /* =========================================
    CERRAR MODALES
 ========================================= */
