@@ -2394,7 +2394,6 @@ async function savePushSubscriptionToSupabase(
     const subscriptionJSON =
         subscription.toJSON();
 
-
     if (
         !subscriptionJSON.endpoint
     ) {
@@ -2405,12 +2404,10 @@ async function savePushSubscriptionToSupabase(
 
     }
 
-
     const response =
         await fetch(
-            `${SUPABASE_URL}/rest/v1/push_subscriptions`,
+            `${SUPABASE_URL}/rest/v1/push_subscriptions?on_conflict=endpoint`,
             {
-
                 method:
                     "POST",
 
@@ -2426,7 +2423,7 @@ async function savePushSubscriptionToSupabase(
                         `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
 
                     "Prefer":
-                        "resolution=merge-duplicates"
+                        "resolution=merge-duplicates,return=minimal"
 
                 },
 
@@ -2444,19 +2441,16 @@ async function savePushSubscriptionToSupabase(
             }
         );
 
-
     if (!response.ok) {
 
         const errorText =
             await response.text();
-
 
         throw new Error(
             `Supabase respondió ${response.status}: ${errorText}`
         );
 
     }
-
 
     console.log(
         "Mi Agenda Dental: suscripción guardada en Supabase"
