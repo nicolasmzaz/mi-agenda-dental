@@ -2248,7 +2248,7 @@ saveNameButton.addEventListener(
 ========================================= */
 
 const VAPID_PUBLIC_KEY =
-    "BH-Zp9xbaHf9Iqxx2tBtgXnBZDYOyZEXuWIyJgjLj4Pr3HJjRIo4Mc0CLdjE6JCAa9Gi_EUe7gXBRXO6GtOFY4k";
+    "BGt-pEzshBjctvi58VYlBKk3IA4iQ7tANZc0xHLL8URWaidPQdGJv6Tcn-S7eLTt4Wz7g_HvsoTRcXCxGAYPpNw";
 
 
 const SUPABASE_URL =
