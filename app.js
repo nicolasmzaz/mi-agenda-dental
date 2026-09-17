@@ -389,18 +389,111 @@ function formatDateReadable(
 
 }
 
-
 /* =========================================
    GUARDAR JORNADAS
 ========================================= */
 
 function saveJourneys() {
 
+    // Guardar localmente como hasta ahora
     localStorage.setItem(
         "jornadas",
         JSON.stringify(journeys)
     );
 
+    // Sincronizar también con Supabase
+    syncJourneysToSupabase()
+        .catch(error => {
+            console.error(
+                "Mi Agenda Dental: error sincronizando jornadas con Supabase:",
+                error
+            );
+        });
+}
+
+
+/* =========================================
+   SINCRONIZAR JORNADAS CON SUPABASE
+========================================= */
+
+async function syncJourneysToSupabase() {
+
+    if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+        console.warn(
+            "Supabase no está configurado."
+        );
+        return;
+    }
+
+    if (!Array.isArray(journeys)) {
+        return;
+    }
+
+    for (const journey of journeys) {
+
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/journeys?on_conflict=journey_id`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+
+                    "Prefer":
+                        "resolution=merge-duplicates,return=minimal"
+                },
+
+                body: JSON.stringify({
+
+                    journey_id:
+                        Number(journey.id),
+
+                    date:
+                        journey.date || "",
+
+                    clinic_id:
+                        Number(journey.clinicId),
+
+                    clinic:
+                        journey.clinic || "",
+
+                    start:
+                        journey.start || "",
+
+                    end:
+                        journey.end || "",
+
+                    patients:
+                        journey.patients || "",
+
+                    notes:
+                        journey.notes || ""
+
+                })
+            }
+        );
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                `Supabase respondió ${response.status}: ${errorText}`
+            );
+        }
+    }
+
+    console.log(
+        "Mi Agenda Dental: jornadas sincronizadas con Supabase"
+    );
 }
 
 

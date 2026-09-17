@@ -1,5 +1,5 @@
 const CACHE_NAME =
-    "mi-agenda-dental-v4";
+    "mi-agenda-dental-v5";
 
 const FILES_TO_CACHE = [
 
