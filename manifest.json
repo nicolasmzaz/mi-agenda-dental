@@ -1,6 +1,6 @@
 {
   "name": "Mi Agenda Dental",
-  "short_name": "Agenda Dental",
+  "short_name": "Mi Agenda Dental",
   "description": "Agenda personal de trabajo dental",
   "start_url": "./index.html",
   "display": "standalone",
