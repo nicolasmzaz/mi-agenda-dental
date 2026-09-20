@@ -1377,7 +1377,35 @@ function deleteJourney(id) {
 
 
     saveJourneys();
-
+// Eliminar también la jornada de Supabase
+if (SUPABASE_URL && SUPABASE_PUBLISHABLE_KEY) {
+    fetch(
+        `${SUPABASE_URL}/rest/v1/journeys?journey_id=eq.${encodeURIComponent(id)}`,
+        {
+            method: "DELETE",
+            headers: {
+                "apikey": SUPABASE_PUBLISHABLE_KEY,
+                "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            }
+        }
+    ).then(response => {
+        if (!response.ok) {
+            console.error(
+                "Mi Agenda Dental: error eliminando jornada de Supabase",
+                response.status
+            );
+        } else {
+            console.log(
+                "Mi Agenda Dental: jornada eliminada de Supabase"
+            );
+        }
+    }).catch(error => {
+        console.error(
+            "Mi Agenda Dental: error eliminando jornada de Supabase",
+            error
+        );
+    });
+}
 
     loadToday();
 
