@@ -2548,16 +2548,23 @@ async function savePushSubscriptionToSupabase(
 
                 },
 
-                body:
-                    JSON.stringify({
+body:
+    JSON.stringify({
 
-                        endpoint:
-                            subscriptionJSON.endpoint,
+        endpoint:
+            subscriptionJSON.endpoint,
 
-                        subscription:
-                            subscriptionJSON
+        subscription:
+            subscriptionJSON,
 
-                    })
+        reminder_minutes:
+            Number(
+                localStorage.getItem(
+                    "reminderMinutes"
+                ) || "30"
+            )
+
+    })
 
             }
         );
@@ -2728,15 +2735,45 @@ notificationTime.addEventListener(
 /* =========================================
    RECORDATORIO
 ========================================= */
-
 reminderMinutes.addEventListener(
     "change",
-    () => {
+    async () => {
 
         localStorage.setItem(
             "reminderMinutes",
             reminderMinutes.value
         );
+
+
+        /*
+         * Actualizar la preferencia
+         * también en Supabase.
+         */
+
+        try {
+
+            if (
+                notificationsToggle.checked
+            ) {
+
+                await subscribeToPush();
+
+                console.log(
+                    "Mi Agenda Dental: recordatorio actualizado a",
+                    reminderMinutes.value,
+                    "minutos"
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Mi Agenda Dental: error actualizando el recordatorio:",
+                error
+            );
+
+        }
 
     }
 );
